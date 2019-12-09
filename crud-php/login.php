@@ -2,20 +2,21 @@
   session_start();
  
   require 'conexion.php';
-    if (!empty($_POST['correo']) && !empty($_POST['password'])) {
-      $records = $conexion->prepare('SELECT * FROM personas WHERE correo = :correo');
-      $records->bindParam(':correo', $_POST['correo']);
+
+    if (!empty($_POST['email']) && !empty($_POST['password'])) {
+      $records = $conexion->prepare('SELECT * FROM usuario WHERE email = :email');
+      $records->bindParam(':email', $_POST['email']);
       $records->execute();
       $resultado = $records->fetch(PDO::FETCH_ASSOC);
       
       $message = '';
       // $message = password_verify($_POST['password'], $resultado['password']);
   
-      // print_r('');die;
+      print_r('');die;
        
       if (count($resultado) > 0 && password_verify($_POST['password'], $resultado['password'])) {
       
-        $_SESSION['user_id'] = $resultado['id'];
+        $_SESSION['user_id'] = $resultado['numero_documento'];
         
         header("Location: update.php");
       } 
@@ -45,7 +46,7 @@
     <span>o <a href="signup.php">Registrarse</a></span>
 
     <form action="login.php" method="POST">
-      <input name="correo" type="text" placeholder="ingrese@usuario.com">
+      <input name="email" type="text" placeholder="ingrese@usuario.com">
       <input name="password" type="password" placeholder="Contraseña">
       <input type="submit" value="Enviar">
     </form>

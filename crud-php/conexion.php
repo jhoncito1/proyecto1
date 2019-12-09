@@ -1,12 +1,12 @@
 <?php
-    $database ='personas_db';
+    $database ='diverpark';
     $user = 'root';
     $password = '';
     try{
         $conexion = new PDO('mysql: host = localhost; dbname='.$database, $user, $password);
     }
     catch(PDOException $e){
-        echo "Erros".$e-> getMessage();
+        echo "Error".$e-> getMessage();
 
     }
 ?>

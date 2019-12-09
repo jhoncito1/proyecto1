@@ -1,11 +1,13 @@
 <?php
+session_start();
+
     include_once 'conexion.php';
-    $sentencia_select =$conexion->prepare('SELECT *FROM personas ORDER BY id asc');
+    $sentencia_select =$conexion->prepare('SELECT *FROM usuario ORDER BY numero_documento asc');
 	$sentencia_select->execute();
     $resultado=$sentencia_select->fetchAll();
     if (isset($_POST['btn_buscar'])) {
         $buscar_text = $_POST['buscar'];
-        $select_buscar = $conexion -> prepare('SELECT *FROM clientes WHERE nombre LIKE :campo OR apellidos LIKE :campo;');
+        $select_buscar = $conexion -> prepare('SELECT *FROM usuario WHERE primer_nombre LIKE :campo OR primer_apellido LIKE :campo;');
         $select_buscar -> execute (array('campo'=> "%".$buscar_text. "%"));
         $resultado= $select_buscar -> fetchAll();
     }
@@ -38,25 +40,29 @@
         </div>
         <table>
             <tr class="head">
-                <td>id</td>
-                <td>nombre</td>
-                <td>apellido</td>
-                <td>identificacion</td>
-                <td>telefono</td>
+                <td>Documento</td>
+                <td>Tipo Doc</td>
+                <td>Primer nombre</td>
+                <td>Segundo nombre</td>
+                <td>Primer apellido</td>
+                <td>Segundo apellido</td>
+                <td>Direccion</td>
                 <td>correo</td>
                 <td colspan="2">accion</td>
             </tr>
         
             <?php foreach($resultado as $filas):?>
                 <tr>
-                    <td><?php echo $filas ['id']?></td>
-                    <td><?php echo $filas ['nombre']?></td>
-                    <td><?php echo $filas ['apellido']?></td>
-                    <td><?php echo $filas ['identificacion']?></td>
-                    <td><?php echo $filas ['telefono']?></td>
-                    <td><?php echo $filas ['correo']?></td>
-                    <td><a href="update.php?id = <?php echo filas['id']; ?>" class="btn_update">Editar</a></td>
-                    <td><a href="delete.php?id = <?php echo filas['id']; ?>" class="btn_delete">Eliminar</a></td>
+                    <td><?php echo $filas ['numero_documento']?></td>
+                    <td><?php echo $filas ['fk_id_tipodoc']?></td>
+                    <td><?php echo $filas ['primer_nombre']?></td>
+                    <td><?php echo $filas ['segundo_nombre']?></td>
+                    <td><?php echo $filas ['primer_apellido']?></td>
+                    <td><?php echo $filas ['segundo_apellido']?></td>
+                    <td><?php echo $filas ['direccion']?></td>
+                    <td><?php echo $filas ['email']?></td>
+                    <td><a href="update.php?id = <?php echo $filas['numero_documento']; ?>" class="btn_update">Editar</a></td>
+                    <td><a href="delete.php?id = <?php echo $filas['numero_documento']; ?>" class="btn_delete">Eliminar</a></td>
                 </tr>
                 <?php endforeach ?>
         </table>
