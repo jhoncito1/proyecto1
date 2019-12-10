@@ -20,14 +20,19 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CRUD-PHP</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
     
+<?php require 'partials/header.php' ?>
+    
+    
+<?php if(!empty($_SESSION)): ?> 
+      <br>Bienvenido. <?= $user['nombre']; ?> 
+      <br> Has iniciado sesión correctamente
+      <a href="logout.php">Salir</a>
 
-    
-    
-    <div class="container">
+      <div class="container">
         <h2>CRUD PHP</h2>
 
         <div class="barra_buscador">
@@ -38,6 +43,7 @@ session_start();
                 <a href="insertar.php" class="btn btn_nuevo">Nuevo</a>
             </form>
         </div>
+        
         <table>
             <tr class="head">
                 <td>Documento</td>
@@ -67,5 +73,15 @@ session_start();
                 <?php endforeach ?>
         </table>
     </div>
+
+
+
+    <?php else: ?>
+      <h1>Ingrese o registrese</h1> 
+
+      <a href="login.php">Iniciar sesion</a> o
+      <a href="insertar.php">Registrarse</a>
+    <?php endif; ?>
+
 </body>
 </html>

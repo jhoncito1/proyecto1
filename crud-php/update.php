@@ -62,9 +62,11 @@ session_start();
 <head>
 	<meta charset="UTF-8">
 	<title>Editar Cliente</title>
-	<link rel="stylesheet" href="css/insertar.css">
+	<link rel="stylesheet" href="assets/css/insertar.css">
 </head>
 <body>
+<?php require 'partials/header.php' ?>
+
 	<div class="contenedor">
 		<h2>CRUD EN PHP </h2>
 		<form action="" method="post">
