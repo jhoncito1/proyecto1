@@ -1,7 +1,26 @@
 <?php
 session_start();
 
-    include_once 'conexion.php';
+    require 'conexion.php';
+
+
+    if (isset($_SESSION['user_id'])) {
+        $records = $conexion->prepare('SELECT *  FROM usuario WHERE numero_documento = :numero_documento');
+        $records->bindParam(':numero_documento', $_SESSION['user_id']);
+        $records->execute();
+        $resultado = $records->fetch(PDO::FETCH_ASSOC);
+    
+        $user = null;
+    
+        if (count($resultado) > 0) {
+          $user = $resultado;
+        }
+      }
+
+
+
+
+
     $sentencia_select =$conexion->prepare('SELECT *FROM usuario ORDER BY numero_documento asc');
 	$sentencia_select->execute();
     $resultado=$sentencia_select->fetchAll();

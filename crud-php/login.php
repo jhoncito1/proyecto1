@@ -12,13 +12,12 @@
       $message = '';
       // $message = password_verify($_POST['password'], $resultado['password']);
   
-      print_r('');die;
+      //print_r(' hol');die;
        
       if (count($resultado) > 0 && password_verify($_POST['password'], $resultado['password'])) {
       
         $_SESSION['user_id'] = $resultado['numero_documento'];
-        
-        header("Location: update.php");
+        header("Location: index.php");
       } 
       else {
         $message = 'Error, usuario y contraseña no coinciden';
