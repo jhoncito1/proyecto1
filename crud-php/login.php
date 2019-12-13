@@ -7,15 +7,14 @@
       $records = $conexion->prepare('SELECT * FROM usuario WHERE email = :email');
       $records->bindParam(':email', $_POST['email']);
       $records->execute();
-      $resultado = $records->fetch(PDO::FETCH_ASSOC);
-      
+      $resultado = $records->fetchall(PDO::FETCH_ASSOC);
       $message = '';
       // $message = password_verify($_POST['password'], $resultado['password']);
-  
-      //print_r(' hol');die;
-       
-      if (count($resultado) > 0 && password_verify($_POST['password'], $resultado['password'])) {
-      
+       $p =sha1($_POST['password']);
+       print($p);
+       print('<br>');
+       print_r($resultado);
+      if (count($resultado) > 0 && $p== $resultado[0]['password']) {
         $_SESSION['user_id'] = $resultado['numero_documento'];
         header("Location: index.php");
       } 

@@ -8,7 +8,7 @@ $message = '';
    $sql = "INSERT INTO usuario (numero_documento, fk_id_tipodoc, primer_nombre, segundo_nombre, 
    primer_apellido, segundo_apellido, direccion, email, password)
    VALUES (:numero_documento, :fk_id_tipodoc, :primer_nombre, :segundo_nombre, 
-   :primer_apellido, :segundo_apellido, :direccion, :email, :password)";
+   :primer_apellido, :segundo_apellido, :direccion, :email, :password1)";
    $dato = $conexion->prepare($sql);
 
    $dato->bindParam(':numero_documento', $_POST['numero_documento']);
@@ -19,8 +19,8 @@ $message = '';
    $dato->bindParam(':segundo_apellido', $_POST['segundo_apellido']);
    $dato->bindParam(':direccion', $_POST['direccion']);
    $dato->bindParam(':email', $_POST['email']);
-   $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-   $dato->bindParam(':password', $password);
+   $password = sha1($_POST['password']);
+   $dato->bindParam(':password1', $password);
   
    if ($dato->execute()) {
      $message = 'Usuario creado satisfactoriamente';
